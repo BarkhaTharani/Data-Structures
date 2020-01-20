@@ -692,11 +692,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Github-Workspace\\data-structures\\data-structures.csproj",
+      "projectUniqueName": "d:\\Github-Workspace\\data-structures\\data-structures.csproj",
       "projectName": "data-structures",
-      "projectPath": "D:\\Github-Workspace\\data-structures\\data-structures.csproj",
+      "projectPath": "d:\\Github-Workspace\\data-structures\\data-structures.csproj",
       "packagesPath": "C:\\Users\\barkha\\.nuget\\packages\\",
-      "outputPath": "D:\\Github-Workspace\\data-structures\\obj\\",
+      "outputPath": "d:\\Github-Workspace\\data-structures\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
