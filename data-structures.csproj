@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <RootNamespace>data_structures</RootNamespace>
-    <StartupObject>data_structures.LinkedList</StartupObject>
+    <StartupObject>data_structures_linkedlist_advanced.LinkedListAdvanced</StartupObject>
   </PropertyGroup>
 
 </Project>

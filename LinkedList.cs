@@ -1,7 +1,7 @@
 using System;
 
-namespace data_structures {
-    class Node {
+namespace data_structures_linkedlist_basic {
+    public class Node {
         public int data;
         public Node next;
         public Node (int data) {
@@ -10,8 +10,8 @@ namespace data_structures {
         }
     }
     class LinkedList {
-        Node head;
-        void AddToEnd (int data) {
+        public Node head;
+        public void Add (int data) {
             Node newNode = new Node (data);
             if (head == null) {
                 head = newNode;
@@ -23,7 +23,7 @@ namespace data_structures {
             }
             ptr.next = newNode; //now ptr points to last node,point last node to new node
         }
-        void AddToStart (int data) {
+        public void AddFirst (int data) {
             Node newNode = new Node (data);
             if (head == null) {
                 head = newNode;
@@ -34,7 +34,45 @@ namespace data_structures {
             newNode.next = ptr; //point new node to next node
         }
 
-        void Traverse () {
+        public void AddAfterNthNode (int n, int data) {
+            if (head == null) {
+                return;
+            }
+            if (n <= 0 || n > Size ()) { //check if n is within range of linkedlist length
+                Console.WriteLine ("Provided location is out of range.");
+                return;
+            }
+            Node ptr = head;
+            Node newNode = new Node (data);
+            int counter = 1;
+            while (counter < n) {
+                ptr = ptr.next;
+                counter++;
+            }
+            newNode.next = ptr.next;
+            ptr.next = newNode;
+        }
+        public void AddAfterPrevNode (Node prevNode, int data) {
+            if (prevNode == null) {
+                return;
+            }
+
+            Node newNode = new Node (data);
+            newNode.next = prevNode.next;
+            prevNode.next = newNode;
+        }
+
+        public void Traverse (Node head) {
+            if (head == null) {
+                return; //return if ll is empty
+            }
+            Node ptr = head;
+            while (ptr != null) { //ptr becomes null after last node; traverse till last node
+                Console.WriteLine (ptr.data);
+                ptr = ptr.next;
+            }
+        }
+        public void Traverse () {
             if (head == null) {
                 return; //return if ll is empty
             }
@@ -45,7 +83,20 @@ namespace data_structures {
             }
         }
 
-        bool search (int data) {
+        public bool Search (int data) {
+            if (head == null) {
+                return false; //return false if ll is empty
+            }
+            Node ptr = head;
+            while (ptr != null) { //traverse till last node
+                if (ptr.data == data) { //compare provide value with current node in traversal
+                    return true; //return true if found
+                }
+                ptr = ptr.next; //otherwise move pointer ahead
+            }
+            return false; //return false if not matched ie not found
+        }
+        public bool Search (int data, Node head) {
             if (head == null) {
                 return false; //return false if ll is empty
             }
@@ -59,7 +110,73 @@ namespace data_structures {
             return false; //return false if not matched ie not found
         }
 
-        int Size () {
+        void DeleteFirstNode () {
+            if (head == null) {
+                return;
+            }
+            Node ptr = head;
+            head = ptr.next;
+        }
+
+        void DeleteLastNode () {
+            if (head == null) {
+                return;
+            }
+            Node ptr = head;
+            Node prevNode = null;
+            while (ptr.next != null) {
+                prevNode = ptr;
+                ptr = ptr.next;
+            }
+            prevNode.next = null;
+        }
+
+        void DeleteNode (int data) {
+            Node ptr = head;
+            Node prevNode = null;
+            if (ptr != null && ptr.data == data) { //if key is present at first node.
+                head = ptr.next; // make head point to 2nd node.
+                return;
+            }
+            while (ptr != null && ptr.data != data) { //move ptr ahead until key not found
+                prevNode = ptr; //keep track of prev node.
+                ptr = ptr.next;
+            }
+            if (ptr == null)
+                return; //end of linkedlist ,key not found.
+
+            prevNode.next = ptr.next; //link prev node of key to next node of key.
+
+        }
+
+        void DeleteNthNode (int n) {
+            if (head == null) {
+                return;
+            }
+            if (n <= 0 || n > Size ()) { //check if n is within range of linkedlist length
+                Console.WriteLine ("Provided location is out of range.");
+                return;
+            }
+
+            Node ptr = head;
+            Node prevNode = null;
+            int counter = 1;
+            if (counter == n) {
+                head = ptr.next;
+                return;
+            }
+
+            while (counter < n) {
+                prevNode = ptr;
+                ptr = ptr.next;
+                counter++;
+            }
+            prevNode.next = ptr.next;
+
+        }
+
+        //utility method
+        public int Size () {
             if (head == null) {
                 return 0;
             }
@@ -72,158 +189,70 @@ namespace data_structures {
             }
             return counter;
         }
-
-        int middleElementIterative () {
+        public int Size (Node head) {
             if (head == null) {
                 return 0;
             }
-            int mid = Size () / 2;
-            int counter = 1;
+            int counter = 0;
             Node ptr = head;
-            while (counter < mid) {
+            while (ptr != null) {
+                counter++;
                 ptr = ptr.next;
-                counter++;
+
             }
-            return ptr.data;
+            return counter;
+        }
+        public Node createLinkedListOfTenNodes () {
+            Add (10);
+            Add (20);
+            Add (30);
+            Add (40);
+            Add (50);
+            Add (60);
+            Add (70);
+            Add (80);
+            Add (90);
+            Add (100);
+
+            return head;
         }
 
-        int middleElementUsingPointers () {
-            if (head == null) {
-                return 0;
-            }
-            Node slowPtr = head; //take two pointers
-            Node fastPtr = head;
-            while (fastPtr != null && fastPtr.next != null && fastPtr.next.next != null) {
-                fastPtr = fastPtr.next.next; // move faster pointer twice fast as slow one.
-                slowPtr = slowPtr.next;
-            }
-            return slowPtr.data; //slow ptr now points to mid node
-        }
-        int findNthNode (int n) {
-            if (head == null) {
-                Console.WriteLine ("Linked List is empty.");
-                return 0;
-            }
-            if (n <= 0 || n > Size ()) { //check if n is within range of linkedlist length
-                Console.WriteLine ("Provided location is out of range.");
-                return 0;
-            }
-            Node ptr = head;
-            int counter = 1;
-            while (counter < n) { // traverse ptr until n
-                ptr = ptr.next;
-                counter++;
-            }
-            return ptr.data; //return Nth node
-        }
+        public Node CreateLoopedLinkedList (Node head) {
+            Node ptr = new Node (10);
+            head = ptr;
+            ptr.next.next = new Node (20);
+            ptr.next.next.next = new Node (30);
 
-        int findNthNodeFromEnd (int n) {
-            if (head == null) {
-                Console.WriteLine ("Linked List is empty.");
-                return 0;
-            }
-            if (n <= 0 || n > Size ()) { //check if n is withing range
-                Console.WriteLine ("Provided location is out of range.");
-                return 0;
-            }
-            Node fastPtr = head;
-            int counter = 1;
-            while (counter < n) { //move fast ptr until nth node
-                fastPtr = fastPtr.next;
-                counter++;
-            }
-            Node slowPtr = head; //now point slow ptr to first node while fast ptr points to nth node
-            while (fastPtr.next != null) { //move both pointers until fastptr.next is not null
-                fastPtr = fastPtr.next;
-                slowPtr = slowPtr.next;
-            }
-            return slowPtr.data; //slowptr now pointing to Nth node from end
-        }
-
-        bool hasLoop () {
-            if (head == null) {
-                Console.WriteLine ("LinkedList is empty.");
-                return false;
-            }
-            Node fastPtr = head;
-            Node slowPtr = head;
-            while (fastPtr.next != null && fastPtr.next.next != null) {
-                fastPtr = fastPtr.next.next; //move fast ptr twice fast as slow ptr
-                slowPtr = slowPtr.next;
-                if (fastPtr == slowPtr) { //return true if both meets
-                    return true; //meeting of both ptrs mean ,ll has loop
-                }
-            }
-            return false; // otherwise return false
-        }
-
-        void createLoop (int n) {
-            if (head == null) {
-                Console.WriteLine ("LinkedList is empty.");
-                return;
-            }
-            Node ptr = head;
-            Node temp = head;
-            int counter = 1;
-            while (ptr.next != null) {
-                ptr = ptr.next;
-                counter++;
-                if (counter == n) {
-                    temp = ptr;
-                    Console.WriteLine (temp.data);
-                }
-            }
-            ptr.next = temp;
-            Console.WriteLine (ptr.data);
+            return head;
         }
 
         static void Main (string[] args) {
             LinkedList linkedList = new LinkedList ();
-            linkedList.AddToEnd (20);
-            linkedList.AddToEnd (30);
-            linkedList.AddToEnd (40);
-            linkedList.AddToEnd (50);
-            linkedList.AddToEnd (60);
-            linkedList.AddToStart (10);
+            linkedList.Add (20);
+            linkedList.Add (30);
+            linkedList.Add (40);
+            linkedList.Add (50);
+            linkedList.Add (60);
+            linkedList.Add (10);
+            linkedList.AddFirst (9);
+            linkedList.AddAfterNthNode (3, 35);
+            linkedList.AddAfterPrevNode (linkedList.head.next.next.next, 38);
+            linkedList.Traverse ();
+            Console.WriteLine ("_______________");
+            //linkedList.DeleteNode (38);
+            //linkedList.DeleteNthNode (2);
+            linkedList.DeleteFirstNode ();
+            linkedList.DeleteLastNode ();
 
             linkedList.Traverse ();
             int size = linkedList.Size ();
             Console.WriteLine ("Size of linked list is: " + size);
-            bool ifFound = linkedList.search (20);
+            bool ifFound = linkedList.Search (20);
             Console.WriteLine ("Element found: " + ifFound);
-            bool elemFound = linkedList.search (80);
+            bool elemFound = linkedList.Search (80);
             Console.WriteLine ("Element found: " + elemFound);
-            int middleElement1 = linkedList.middleElementIterative ();
-            if (middleElement1 == 0) {
-                Console.WriteLine ("Linked List is Empty");
-            } else {
-                Console.WriteLine ("Middle Element is:" + middleElement1);
-            }
 
-            int middleElement2 = linkedList.middleElementUsingPointers ();
-            if (middleElement2 == 0) {
-                Console.WriteLine ("Linked List is Empty");
-            } else {
-                Console.WriteLine ("Middle Element is:" + middleElement2);
-            }
-            int n = 6;
-            int nthNode = linkedList.findNthNode (n);
-            if (nthNode > 0) {
-                Console.WriteLine (String.Format ("Node at {0} position is {1}", n, nthNode));
-            }
-            n = 4;
-            int nthNodeFromEnd = linkedList.findNthNodeFromEnd (n);
-            if (nthNodeFromEnd > 0) {
-                Console.WriteLine (String.Format ("Node at {0} position is {1}", n, nthNodeFromEnd));
-            }
-
-            linkedList.createLoop (4);
-            bool hasloop = linkedList.hasLoop ();
-            if (hasloop) {
-                Console.WriteLine ("LinkedList has loop.");
-            } else {
-                Console.WriteLine ("LinkedList doesn't have loop.");
-            }
         }
+
     }
 }
