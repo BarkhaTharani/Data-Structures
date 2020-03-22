@@ -1,6 +1,6 @@
 using System;
 
-namespace data_structures_linkedlist_basic {
+namespace data_structures_linkedlist {
     public class Node {
         public int data;
         public Node next;
@@ -52,15 +52,6 @@ namespace data_structures_linkedlist_basic {
             newNode.next = ptr.next;
             ptr.next = newNode;
         }
-        public void AddAfterPrevNode (Node prevNode, int data) {
-            if (prevNode == null) {
-                return;
-            }
-
-            Node newNode = new Node (data);
-            newNode.next = prevNode.next;
-            prevNode.next = newNode;
-        }
 
         public void Traverse (Node head) {
             if (head == null) {
@@ -68,7 +59,7 @@ namespace data_structures_linkedlist_basic {
             }
             Node ptr = head;
             while (ptr != null) { //ptr becomes null after last node; traverse till last node
-                Console.WriteLine (ptr.data);
+                Console.Write (ptr.data + " ");
                 ptr = ptr.next;
             }
         }
@@ -78,7 +69,7 @@ namespace data_structures_linkedlist_basic {
             }
             Node ptr = head;
             while (ptr != null) { //ptr becomes null after last node; traverse till last node
-                Console.WriteLine (ptr.data);
+                Console.Write (ptr.data + " ");
                 ptr = ptr.next;
             }
         }
@@ -110,7 +101,7 @@ namespace data_structures_linkedlist_basic {
             return false; //return false if not matched ie not found
         }
 
-        void DeleteFirstNode () {
+        void DeleteFirst () {
             if (head == null) {
                 return;
             }
@@ -118,7 +109,7 @@ namespace data_structures_linkedlist_basic {
             head = ptr.next;
         }
 
-        void DeleteLastNode () {
+        void DeleteLast () {
             if (head == null) {
                 return;
             }
@@ -131,7 +122,7 @@ namespace data_structures_linkedlist_basic {
             prevNode.next = null;
         }
 
-        void DeleteNode (int data) {
+        void Delete (int data) {
             Node ptr = head;
             Node prevNode = null;
             if (ptr != null && ptr.data == data) { //if key is present at first node.
@@ -202,7 +193,7 @@ namespace data_structures_linkedlist_basic {
             }
             return counter;
         }
-        public Node createLinkedListOfTenNodes () {
+        public Node CreateLinkedListOfTenNodes () {
             Add (10);
             Add (20);
             Add (30);
@@ -217,42 +208,19 @@ namespace data_structures_linkedlist_basic {
             return head;
         }
 
-        public Node CreateLoopedLinkedList (Node head) {
+        public void CreateLoopedLinkedList () {
             Node ptr = new Node (10);
             head = ptr;
-            ptr.next.next = new Node (20);
-            ptr.next.next.next = new Node (30);
-
-            return head;
+            ptr.next = new Node (20);
+            ptr.next.next = new Node (30);
+            ptr.next.next.next = new Node (40);
+            ptr.next.next.next.next = new Node (50);
+            ptr.next.next.next.next.next = new Node (60);
+            ptr.next.next.next.next.next.next = new Node (70);
+            ptr.next.next.next.next.next.next.next = new Node (80);
+            ptr.next.next.next.next.next.next.next.next = new Node (90);
+            ptr.next.next.next.next.next.next.next.next.next = new Node (100);
+            ptr.next.next.next.next.next.next.next.next.next.next = ptr;
         }
-
-        static void Main (string[] args) {
-            LinkedList linkedList = new LinkedList ();
-            linkedList.Add (20);
-            linkedList.Add (30);
-            linkedList.Add (40);
-            linkedList.Add (50);
-            linkedList.Add (60);
-            linkedList.Add (10);
-            linkedList.AddFirst (9);
-            linkedList.AddAfterNthNode (3, 35);
-            linkedList.AddAfterPrevNode (linkedList.head.next.next.next, 38);
-            linkedList.Traverse ();
-            Console.WriteLine ("_______________");
-            //linkedList.DeleteNode (38);
-            //linkedList.DeleteNthNode (2);
-            linkedList.DeleteFirstNode ();
-            linkedList.DeleteLastNode ();
-
-            linkedList.Traverse ();
-            int size = linkedList.Size ();
-            Console.WriteLine ("Size of linked list is: " + size);
-            bool ifFound = linkedList.Search (20);
-            Console.WriteLine ("Element found: " + ifFound);
-            bool elemFound = linkedList.Search (80);
-            Console.WriteLine ("Element found: " + elemFound);
-
-        }
-
     }
 }

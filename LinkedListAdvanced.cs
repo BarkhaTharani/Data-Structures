@@ -1,9 +1,9 @@
 using System;
-using data_structures_linkedlist_basic;
+using data_structures_linkedlist;
 namespace data_structures_linkedlist_advanced {
 
     class LinkedListAdvanced {
-        bool searchRecursively (int data, Node head) {
+        bool SearchRecursively (int data, Node head) {
             return _searchKeyRecursively (data, head);
         }
 
@@ -17,7 +17,7 @@ namespace data_structures_linkedlist_advanced {
             return _searchKeyRecursively (data, node.next);
         }
 
-        public int getSizeRecursively (Node head) {
+        public int GetSizeRecursively (Node head) {
             return _recursiveSize (head);
         }
 
@@ -30,7 +30,7 @@ namespace data_structures_linkedlist_advanced {
             return 1 + _recursiveSize (node.next);
         }
 
-        int middleElementIterative (Node head) {
+        int MiddleElementIterative (Node head) {
             if (head == null) {
                 return 0;
             }
@@ -45,7 +45,7 @@ namespace data_structures_linkedlist_advanced {
             return ptr.data;
         }
 
-        int middleElementUsingPointers (Node head) {
+        int MiddleElementUsingPointers (Node head) {
             if (head == null) {
                 return 0;
             }
@@ -57,7 +57,7 @@ namespace data_structures_linkedlist_advanced {
             }
             return slowPtr.data; //slow ptr now points to mid node
         }
-        int findNthNode (int n, Node head) {
+        int FindNthNode (int n, Node head) {
             if (head == null) {
                 Console.WriteLine ("Linked List is empty.");
                 return 0;
@@ -76,7 +76,7 @@ namespace data_structures_linkedlist_advanced {
             return ptr.data; //return Nth node
         }
 
-        int findNthNodeFromEnd (int n, Node head) {
+        int FindNthNodeFromEnd (int n, Node head) {
             if (head == null) {
                 Console.WriteLine ("Linked List is empty.");
                 return 0;
@@ -100,7 +100,7 @@ namespace data_structures_linkedlist_advanced {
             return slowPtr.data; //slowptr now pointing to Nth node from end
         }
 
-        public bool hasLoop (Node head) {
+        public bool HasLoop (Node head) {
             if (head == null) {
                 Console.WriteLine ("LinkedList is empty.");
                 return false;
@@ -117,7 +117,7 @@ namespace data_structures_linkedlist_advanced {
             return false; // otherwise return false
         }
 
-        public int loopLength (Node head) {
+        public int LoopLength (Node head) {
             if (head == null) {
                 Console.WriteLine ("LinkedList is empty.");
                 return 0;
@@ -129,7 +129,7 @@ namespace data_structures_linkedlist_advanced {
             while (fastPtr != null && fastPtr.next != null) {
                 fastPtr = fastPtr.next.next; //move fast ptr twice fast as slow ptr
                 slowPtr = slowPtr.next;
-                if (fastPtr == slowPtr) { //return true if both meets
+                if (fastPtr == slowPtr) {
 
                     Node temp = slowPtr;
                     resultCount++;
@@ -143,10 +143,75 @@ namespace data_structures_linkedlist_advanced {
 
                 }
             }
-            return resultCount; // otherwise return false
+            return resultCount;
         }
 
-        public void createLoop (int n, Node head) {
+        public Node FindLoopStart (Node head) {
+            if (head == null && head.next == null) {
+                return null;
+            }
+            Node slowPtr = head;
+            Node fastPtr = head;
+            while (fastPtr != null && fastPtr.next != null) {
+                fastPtr = fastPtr.next.next;
+                slowPtr = slowPtr.next;
+                if (fastPtr == slowPtr) {
+                    break;
+                }
+            }
+            slowPtr = head;
+            while (fastPtr != slowPtr) {
+                fastPtr = fastPtr.next;
+                slowPtr = slowPtr.next;
+            }
+
+            return slowPtr;
+        }
+
+        public Node FindLoopEnd (Node head) {
+            if (head == null && head.next == null) {
+                return null;
+            }
+            Node slowPtr = head;
+            Node fastPtr = head;
+            while (fastPtr != null && fastPtr.next != null) {
+                fastPtr = fastPtr.next.next;
+                slowPtr = slowPtr.next;
+                if (fastPtr == slowPtr) {
+                    break;
+                }
+            }
+            slowPtr = head;
+            LinkedListAdvanced linkedList = new LinkedListAdvanced ();
+            while (fastPtr.next != slowPtr.next) {
+                fastPtr = fastPtr.next;
+                slowPtr = slowPtr.next;
+            }
+
+            return fastPtr;
+        }
+        public void RemoveLoop (Node head) {
+            if (head == null && head.next == null) {
+                return;
+            }
+            Node slowPtr = head;
+            Node fastPtr = head;
+            while (fastPtr != null && fastPtr.next != null) {
+                fastPtr = fastPtr.next.next;
+                slowPtr = slowPtr.next;
+                if (fastPtr == slowPtr) {
+                    break;
+                }
+            }
+            slowPtr = head;
+            while (fastPtr.next != slowPtr.next) {
+                fastPtr = fastPtr.next;
+                slowPtr = slowPtr.next;
+            }
+            fastPtr.next = null;
+        }
+
+        public void CreateLoop (int n, Node head) {
             if (head == null) {
                 Console.WriteLine ("LinkedList is empty.");
                 return;
@@ -159,11 +224,9 @@ namespace data_structures_linkedlist_advanced {
                 counter++;
                 if (counter == n) {
                     temp = ptr;
-                    Console.WriteLine (temp.data);
                 }
             }
             ptr.next = temp;
-            Console.WriteLine (ptr.data);
         }
         public Node Reverse (Node head) {
             if (head == null) {
@@ -183,18 +246,62 @@ namespace data_structures_linkedlist_advanced {
             return head;
         }
 
+        public Node RotatebyKNode (int k, Node head) {
+            if (head == null) {
+                return null;
+            }
+            Node ptr = head;
+            //Node fastPtr = head;
+            int counter = 1;
+            while (counter < 4 && ptr != null) {
+                ptr = ptr.next;
+                counter++;
+            }
+
+            Node KthNode = ptr;
+
+            while (ptr.next != null) {
+                ptr = ptr.next;
+            }
+
+            ptr.next = head;
+            head = KthNode.next;
+            KthNode.next = null;
+            return head;
+        }
+
+        public void RemoveDuplicatesFromSortedLL (Node head) {
+            if (head == null) {
+                return;
+            }
+
+            Node ptr = head;
+            Node nextNode = null;
+
+            while (ptr.next != null) {
+                if (ptr.data == ptr.next.data) {
+                    nextNode = ptr.next.next;
+                    ptr.next = null;
+                    ptr.next = nextNode;
+                } else {
+                    ptr = ptr.next;
+                }
+            }
+        }
+
         static void Main (string[] args) {
 
             LinkedList linkedList = new LinkedList ();
-            Node head = linkedList.createLinkedListOfTenNodes ();
+            Node head = linkedList.CreateLinkedListOfTenNodes ();
             linkedList.Traverse (head);
+            Console.WriteLine ();
 
             LinkedListAdvanced linkedListAdvanced = new LinkedListAdvanced ();
 
             int size = linkedList.Size (head);
             Console.WriteLine ("Size of linked list recursively is: " + size);
 
-            int sizeRecursive = linkedListAdvanced.getSizeRecursively (head);
+            int sizeRecursive = linkedListAdvanced.GetSizeRecursively (head);
             Console.WriteLine ("Size of linked list is: " + sizeRecursive);
 
             bool ifFound1 = linkedList.Search (20, head);
@@ -203,20 +310,20 @@ namespace data_structures_linkedlist_advanced {
             bool ifFound2 = linkedList.Search (110, head);
             Console.WriteLine ("Element found: " + ifFound2);
 
-            bool keyFound1 = linkedListAdvanced.searchRecursively (20, head);
+            bool keyFound1 = linkedListAdvanced.SearchRecursively (20, head);
             Console.WriteLine ("Element found: " + keyFound1);
 
-            bool keyFound2 = linkedListAdvanced.searchRecursively (110, head);
+            bool keyFound2 = linkedListAdvanced.SearchRecursively (110, head);
             Console.WriteLine ("Element found: " + keyFound2);
 
-            int middleElement1 = linkedListAdvanced.middleElementIterative (head);
+            int middleElement1 = linkedListAdvanced.MiddleElementIterative (head);
             if (middleElement1 == 0) {
                 Console.WriteLine ("Linked List is Empty");
             } else {
                 Console.WriteLine ("Middle Element is:" + middleElement1);
             }
 
-            int middleElement2 = linkedListAdvanced.middleElementUsingPointers (head);
+            int middleElement2 = linkedListAdvanced.MiddleElementUsingPointers (head);
             if (middleElement2 == 0) {
                 Console.WriteLine ("Linked List is Empty");
             } else {
@@ -224,27 +331,41 @@ namespace data_structures_linkedlist_advanced {
             }
 
             int n = 6;
-            int nthNode = linkedListAdvanced.findNthNode (n, head);
+            int nthNode = linkedListAdvanced.FindNthNode (n, head);
             if (nthNode > 0) {
                 Console.WriteLine (String.Format ("Node at {0} position is {1}", n, nthNode));
             }
 
             n = 4;
-            int nthNodeFromEnd = linkedListAdvanced.findNthNodeFromEnd (n, head);
+            int nthNodeFromEnd = linkedListAdvanced.FindNthNodeFromEnd (n, head);
             if (nthNodeFromEnd > 0) {
                 Console.WriteLine (String.Format ("Node at {0} position is {1}", n, nthNodeFromEnd));
             }
-            Node head2 = linkedListAdvanced.Reverse (head);
-            linkedList.Traverse (head2);
-            linkedListAdvanced.createLoop (4, head2);
-            bool hasloop = linkedListAdvanced.hasLoop (head2);
+            //Node head2 = linkedListAdvanced.Reverse (head);
+            linkedList.Traverse (head);
+            linkedListAdvanced.CreateLoop (4, head);
+            bool hasloop = linkedListAdvanced.HasLoop (head);
             if (hasloop) {
                 Console.WriteLine ("LinkedList has loop.");
             } else {
                 Console.WriteLine ("LinkedList doesn't have loop.");
             }
 
-            Console.WriteLine ("Length of loop is : " + linkedListAdvanced.loopLength (head2));
+            Console.WriteLine ("Length of loop is : " + linkedListAdvanced.LoopLength (head));
+            Console.WriteLine ("___");
+
+            Node loopStartNode = linkedListAdvanced.FindLoopStart (head);
+            Console.WriteLine ("First Node of loop is : " + loopStartNode.data);
+            Node loopEndNode = linkedListAdvanced.FindLoopEnd (head);
+            Console.WriteLine ("Last Node of loop is : " + loopEndNode.data);
+
+            linkedListAdvanced.RemoveLoop (head);
+            linkedList.Traverse (head);
+            Console.WriteLine ();
+            // Node newHead =linkedListAdvanced.RotatebyKNode(4, head);
+            //  linkedList.Traverse(newHead);
+            linkedListAdvanced.RemoveDuplicatesFromSortedLL (head);
+            linkedList.Traverse (head);
         }
     }
 }
