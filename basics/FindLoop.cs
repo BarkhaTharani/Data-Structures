@@ -1,7 +1,7 @@
 using System;
-using data_structures_linkedlist;
+using Data_Structures_Linkedlist;
 
-namespace data_structures.basics {
+namespace Data_Structures.Basics {
     public class FindLoop {
         public void CreateLoop (int n, Node head) {
             if (head == null) {

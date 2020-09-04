@@ -1,4 +1,4 @@
-namespace data_structures.interviewprep {
+namespace Data_Structures.Interviewprep {
     public class StringReversal {
         public void ReverseString (char[] s) {
             int i = 0;

@@ -1,6 +1,7 @@
 using System;
-using data_structures_linkedlist;
-namespace data_structures_linkedlist_advanced {
+using Data_Structures_Linkedlist;
+
+namespace Data_Structures_Linkedlist_Advanced {
 
     class LinkedListAdvanced {
         bool SearchRecursively (int data, Node head) {

@@ -1,6 +1,6 @@
 using System;
 
-namespace data_structures_linkedlist {
+namespace Data_Structures_Linkedlist {
     public class Node {
         public int data;
         public Node next;

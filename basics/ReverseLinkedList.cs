@@ -1,6 +1,6 @@
-using data_structures_linkedlist;
+using Data_Structures_Linkedlist;
 
-namespace data_structures.basics {
+namespace Data_Structures.Basics {
     public class ReverseLinkedList {
         public void ReverseList (Node head) {
             Node prev = null, current = head, next = null;
