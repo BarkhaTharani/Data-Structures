@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace data_structures
+namespace Data_Structures
 {
     class Program
     {
