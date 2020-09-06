@@ -12,7 +12,7 @@ namespace Data_Structures.Arrays {
         }
 
         public static int BinarySearch (int[] arr, int key, int start, int end) {
-            int mid = (start + end) /2;
+            int mid = (start + end) / 2;
 
             if (start <= end) {
                 if (key == arr[mid]) {
@@ -32,7 +32,7 @@ namespace Data_Structures.Arrays {
 
         public static void Main (string[] args) {
             int[] arr = { 6, 14, 8, 1, 0, 9 };
-            var pos = BinarySearch (arr, 9, 0, arr.Length-1);
+            var pos = BinarySearch (arr, 9, 0, arr.Length - 1);
             if (pos > 0) {
                 Console.WriteLine ("Element found at index: " + pos);
             } else {

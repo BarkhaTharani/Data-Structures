@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Data_Structures.Interviewprep {
+namespace Data_Structures.Strings {
     public class BalancedStack {
 
         public static bool IsBalanced (string s) {

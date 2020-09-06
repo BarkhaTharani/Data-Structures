@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Data_Structures.Interviewprep {
+namespace Data_Structures.Strings {
     public class StringUniqueness {
 
         public bool IsStringUnique (char[] str) {

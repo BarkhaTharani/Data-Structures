@@ -1,6 +1,6 @@
 using System;
 
-namespace Data_Structures.Interviewprep {
+namespace Data_Structures.Strings {
     public class WordReversal {
         public string ReverseWord (string s) {
             string[] words = s.Split (" ");

@@ -8,7 +8,7 @@ namespace Data_Structures.Sorting {
             for (int i = 0; i < len - 1; i++) {
                 for (int j = 0; j < len - i - 1; j++) {
                     if (arr[j] > arr[j + 1]) {
-                        Swap (arr, j, j+1);
+                        Swap (arr, j, j + 1);
                     }
                 }
 
@@ -22,13 +22,12 @@ namespace Data_Structures.Sorting {
             arr[j] = temp;
         }
 
-        public static void Main (string[] args)
-        {
-            int[] arr = {5, 8, 1, 4, 9};
-            Sort(arr);
+        public static void Main (string[] args) {
+            int[] arr = { 5, 8, 1, 4, 9 };
+            Sort (arr);
 
-            foreach(var a in arr)
-                Console.WriteLine(a + " ");
+            foreach (var a in arr)
+                Console.WriteLine (a + " ");
         }
     }
 }

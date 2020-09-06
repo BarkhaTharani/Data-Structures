@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace Data_Structures.Interviewprep {
+namespace Data_Structures.Strings {
     public class StringAnagram {
         public static List<int> stringAnagram (List<string> dictionary, List<string> query) {
 

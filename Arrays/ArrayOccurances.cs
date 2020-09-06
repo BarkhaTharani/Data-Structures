@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Data_Structures.Interviewprep {
+namespace Data_Structures.Arrays {
     public class ArrayOccurances {
         static void Main (string[] args) {
             int[] array = { 10, 5, 10, 2, 2, 3, 4, 5, 5, 6, 7, 8, 9, 11, 12, 12 };
